@@ -16,28 +16,28 @@ pipeline {
 
         stage('Build & Test') {
             steps {
-                bat 'mvn clean package'
+                sh 'mvn clean package'
             }
         }
 
         stage('SonarQube') {
             steps {
                 withSonarQubeEnv('sonarqube') {
-                    bat 'mvn sonar:sonar'
+                    sh 'mvn sonar:sonar'
                 }
             }
         }
 
         stage('Construir Docker') {
             steps {
-                bat 'docker build -t api-orders .'
+                sh 'docker build -t api-orders .'
             }
         }
 
         stage('Levantar Contenedor') {
             steps {
-                bat 'docker rm -f api-orders'
-                bat 'docker run -d --name api-orders -p 63342:8080 api-orders'
+                sh 'docker rm -f api-orders || true'
+                sh 'docker run -d --name api-orders -p 63342:8080 api-orders'
             }
         }
     }
