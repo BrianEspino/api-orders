@@ -16,27 +16,27 @@ pipeline {
 
         stage('Compilar') {
             steps {
-                bat 'mvn clean compile'
+                sh 'mvn clean compile'
             }
         }
 
         stage('Pruebas') {
             steps {
-                bat 'mvn test'
+                sh 'mvn test'
             }
         }
 
         stage('SonarQube') {
             steps {
                 withSonarQubeEnv('sonarqube') {
-                    bat 'mvn sonar:sonar'
+                    sh 'mvn sonar:sonar'
                 }
             }
         }
 
         stage('Construir Docker') {
             steps {
-                bat 'docker build -t api-orders .'
+                sh 'docker build -t api-orders .'
             }
         }
     }
