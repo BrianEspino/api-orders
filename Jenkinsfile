@@ -10,7 +10,7 @@ pipeline {
 
         stage('Clonar') {
             steps {
-                git 'https://github.com/BrianEspino/api-orders.git'
+                git branch: 'main', url: 'https://github.com/BrianEspino/api-orders.git'
             }
         }
 
